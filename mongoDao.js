@@ -1,3 +1,5 @@
+const { json } = require('express')
+
 const MongoClient = require('mongodb').MongoClient
 
 var db;
@@ -15,15 +17,19 @@ MongoClient.connect('mongodb://127.0.0.1:27017')
 
 var findAll = function() {
     return new Promise((resolve, reject) => {
-        var cursor = coll.find()
-        cursor.toArray()
+        coll.find().sort({ _id: 1 }).toArray() // Sort by _id in ascending order
             .then((documents) => {
-                resolve(documents)
+                resolve(documents);
             })
             .catch((error) => {
-                reject(error)
-            })
-    })}
+                reject(error);
+            });
+    });
+};
+
+module.exports = { findAll };
+
+
 /*
 var addEmployee = function(employee) {
     return new Promise((resolve, reject) => {
@@ -37,5 +43,3 @@ var addEmployee = function(employee) {
     })
 }*/
         
-
-module.exports = { findAll };
