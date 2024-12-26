@@ -6,7 +6,7 @@ pmysql.createPool({
     host : 'localhost',
     user : 'root',
     password : 'root',
-    database : 'studentdb4'
+    database : 'proj2024mysql'
     })
     .then(p => {
         pool = p
@@ -17,7 +17,7 @@ pmysql.createPool({
 
 var getStudent = function() {
     return new Promise((resolve, reject) => {
-        pool.query('SELECT * FROM student_table')
+        pool.query('SELECT * FROM student')
         .then((data) => {
             console.log("D="+ JSON.stringify(data))
             resolve(data)
@@ -29,6 +29,78 @@ var getStudent = function() {
     })
 }
 
-module.exports = {getStudent}
+var getStudentById = function(studentId) {
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT * FROM student WHERE sid = ?', [studentId])
+            .then((data) => {
+                resolve(data[0]); // Return the first result
+            })
+            .catch((error) => {
+                reject(error);
+            });
+    });
+};
+
+var updateStudent = function(studentId, updatedData) {
+    return new Promise((resolve, reject) => {
+        pool.query(
+            'UPDATE student SET name = ?, age = ? WHERE sid = ?', 
+            [updatedData.name, updatedData.age, studentId] // Correct query structure
+        )
+        .then(() => {
+            console.log("Update successful for student:", studentId);
+            resolve();
+        })
+        .catch((error) => {
+            console.error("Database update error:", error); 
+            reject(error);
+        });
+    });
+};
+
+
+var getModule = function() {
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT * FROM module')
+        .then((data) => {
+            console.log("D="+ JSON.stringify(data))
+            resolve(data)
+        })
+        .catch((error) => {
+            console.log("E="+ JSON.stringify(error))
+            reject(error)
+        })
+    })
+}
+
+var getGrades = function() {
+    return new Promise((resolve, reject) => {
+        pool.query(`
+            SELECT 
+                student.name AS studentName,
+                module.name AS moduleName,
+                grade.grade
+            FROM 
+                grade
+            INNER JOIN 
+                student ON grade.sid = student.sid
+            INNER JOIN 
+                module ON grade.mid = module.mid
+            ORDER BY 
+                student.name ASC, grade.grade ASC;
+
+        `)
+            .then((data) => {
+                console.log("D=" + JSON.stringify(data));
+                resolve(data);
+            })
+            .catch((error) => {
+                console.log("E=" + JSON.stringify(error));
+                reject(error);
+            });
+    });
+};
+
+module.exports = { getStudent, getStudentById, updateStudent, getModule, getGrades }
 
     

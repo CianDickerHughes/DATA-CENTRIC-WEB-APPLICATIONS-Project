@@ -1,2 +1,41 @@
+<style>
+    /* Table styling */
+    table { border-collapse: collapse; width: 100%; margin: 20px 0; font-size: 18px; text-align: left; border: 1px solid black; }
+
+    /* Header styling */
+    th { background-color: #f2f2f2; border: 1px solid black; padding: 10px;}
+
+    /* Cell styling */
+    td { border: 1px solid black; padding: 8px; }
+    /* Row hover effect */
+    tr:hover { background-color: #f9f9f9; }
+
+    /* Link styling */
+    a { text-decoration: none; color: blue; }
+    a:hover { text-decoration: underline; }
+</style>
+
 <h1>Grades</h1>
 <p style="font-size: 20px;"><a href="/">Home</a></p>
+
+
+<table>
+    <tr>
+        <th>Student</th>
+        <th>Module</th>
+        <th>Grade</th>
+    </tr>
+    <% if (grades.length > 0) { %>
+        <% grades.forEach((grade) => { %>
+            <tr>
+                <td><%= grade.studentName %></td>
+                <td><%= grade.moduleName %></td>
+                <td><%= grade.grade %></td>
+            </tr>
+        <% }) %>
+    <% } else { %>
+        <tr>
+            <td colspan="3">No grades found</td>
+        </tr>
+    <% } %>
+</table>
