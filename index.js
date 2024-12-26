@@ -68,7 +68,7 @@ app.post('/students/edit/:id', (req, res, next) => {
 
     const updatedData = { name, age };
 
-    // Call the DAO function
+    // Call the DAO to Edit Student
     mySQLDAO.editStudent(studentId, updatedData)
         .then(() => {
             res.redirect('/students');
@@ -85,6 +85,7 @@ app.get('/students/add', (req, res) => { // Render add.ejs with an empty student
 });
 
 // Post add Student to handle form submission for adding a new student
+// Handle student addition, validate input, and handle duplicate ID errors.
 app.post('/students/add', (req, res) => {
     const { sid, name, age } = req.body;
 
@@ -109,8 +110,7 @@ app.post('/students/add', (req, res) => {
         })
         .catch((err) => {
             console.error("Error adding student:", err);
-            // Check for specific error (e.g., duplicate key)
-            const idExists = true; // Assume error indicates duplicate ID
+            const idExists = true; 
             res.render('add', { idExists }); // Render Add page with the flag
         });
 });

@@ -3,6 +3,7 @@
 var pmysql = require("promise-mysql")
 var pool
 
+// Create a MySQL connection pool with a limit of 3 connections to the 'proj2024mysql' database.
 pmysql.createPool({
     connectionLimit : 3,
     host : 'localhost',
@@ -17,6 +18,7 @@ pmysql.createPool({
         console.log("pool error:" + e)
     })
 
+// Get Student from DataBase
 var getStudent = function() {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM student')
@@ -31,6 +33,7 @@ var getStudent = function() {
     })
 }
 
+// Get Student by Id from DataBase
 var getStudentById = function(studentId) {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM student WHERE sid = ?', [studentId])
@@ -43,6 +46,7 @@ var getStudentById = function(studentId) {
     });
 };
 
+// Edit Student from DataBase
 var editStudent = function(studentId, updatedData) {
     return new Promise((resolve, reject) => {
         pool.query(
@@ -60,6 +64,7 @@ var editStudent = function(studentId, updatedData) {
     });
 };
 
+// add Student to the DataBase
 var addStudent = function(newStudent) {
     return new Promise((resolve, reject) => {
         pool.query('INSERT INTO student (sid, name, age) VALUES (?, ?, ?)', 
@@ -79,6 +84,7 @@ var addStudent = function(newStudent) {
     });
 };
 
+// get Module from DataBase
 var getModule = function() {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM module')
@@ -93,6 +99,7 @@ var getModule = function() {
     })
 }
 
+// get Grades for all stutents from DataBase
 var getGrades = function() {
     return new Promise((resolve, reject) => {
         pool.query(`
@@ -101,14 +108,13 @@ var getGrades = function() {
                 module.name AS moduleName,
                 grade.grade
             FROM 
-                grade
-            INNER JOIN 
-                student ON grade.sid = student.sid
-            INNER JOIN 
+                student
+            LEFT JOIN 
+                grade ON student.sid = grade.sid
+            LEFT JOIN 
                 module ON grade.mid = module.mid
             ORDER BY 
                 student.name ASC, grade.grade ASC;
-
         `)
             .then((data) => {
                 console.log("D=" + JSON.stringify(data));
