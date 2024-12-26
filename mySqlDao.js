@@ -41,11 +41,11 @@ var getStudentById = function(studentId) {
     });
 };
 
-var updateStudent = function(studentId, updatedData) {
+var editStudent = function(studentId, updatedData) {
     return new Promise((resolve, reject) => {
         pool.query(
             'UPDATE student SET name = ?, age = ? WHERE sid = ?', 
-            [updatedData.name, updatedData.age, studentId] // Correct query structure
+            [updatedData.name, updatedData.age, studentId]
         )
         .then(() => {
             console.log("Update successful for student:", studentId);
@@ -101,6 +101,6 @@ var getGrades = function() {
     });
 };
 
-module.exports = { getStudent, getStudentById, updateStudent, getModule, getGrades }
+module.exports = { getStudent, getStudentById, editStudent, getModule, getGrades }
 
     

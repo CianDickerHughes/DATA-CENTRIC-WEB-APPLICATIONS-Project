@@ -15,8 +15,10 @@
     a:hover { text-decoration: underline; }
 </style>
 
-<h1>Students</h1>
+<h1>Students</h1><br>
+<p style="font-size: 20px;"><a href="/">Add Student</a></p>
 <p style="font-size: 20px;"><a href="/">Home</a></p>
+
 
 <table >
     <tr>
@@ -30,7 +32,7 @@
             <td><%= student.sid %></td>
             <td><%= student.name %></td>
             <td><%= student.age %></td>
-            <td><a href="/UpdateStudent/<%= student.sid %>">Update</a></td>
+            <td><a href="/edit/<%= student.sid %>">Update</a></td>
         </tr>
     <% }) %>
 </table>

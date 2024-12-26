@@ -12,14 +12,15 @@ app.listen(3004, () =>{
     console.log("Application is Running...");
 }); 
 
-
+// Get Home Page
 app.get('/', (req, res, next) => {
     console.log("GET receieved on /");
     res.render("Home")
 });
 
-app.get('/Students', (req, res, next) => {
-    console.log("GET receieved on /Students");
+// Get Students Page
+app.get('/students', (req, res, next) => {
+    console.log("GET receieved on /students");
     mySQLDAO.getStudent()
         .then((students) => {
             res.render("Students", { student: students });
@@ -31,12 +32,13 @@ app.get('/Students', (req, res, next) => {
 
 });
 
-app.get('/UpdateStudent/:id', (req, res, next) => {
+// Get Edit Student Page
+app.get('/edit/:id', (req, res, next) => {
     const studentId = req.params.id;
     mySQLDAO.getStudentById(studentId)
         .then((student) => {
             if (student) {
-                res.render("UpdateStudent", { student: student });
+                res.render("Edit", { student: student });
             } else {
                 res.status(404).send("Student not found");
             }
@@ -47,7 +49,8 @@ app.get('/UpdateStudent/:id', (req, res, next) => {
         });
 });
 
-app.post('/UpdateStudent/:id', (req, res, next) => {
+// Post Edit Student Page
+app.post('/edit/:id', (req, res, next) => {
     const studentId = req.params.id;
     const { name, age } = req.body;
 
@@ -62,9 +65,9 @@ app.post('/UpdateStudent/:id', (req, res, next) => {
     const updatedData = { name, age };
 
     // Call the DAO function
-    mySQLDAO.updateStudent(studentId, updatedData)
+    mySQLDAO.editStudent(studentId, updatedData)
         .then(() => {
-            res.redirect('/Students');
+            res.redirect('/students');
         })
         .catch((err) => {
             console.error("Error updating student:", err);
@@ -72,9 +75,9 @@ app.post('/UpdateStudent/:id', (req, res, next) => {
         });
 });
 
-
-app.get('/Grades', (req, res, next) => {
-    console.log("GET receieved on /Grades");
+// Get Grades Page
+app.get('/grades', (req, res, next) => {
+    console.log("GET receieved on /grades");
     mySQLDAO.getGrades()
         .then((grades) => {
             res.render("Grades", { grades: grades });
@@ -85,8 +88,9 @@ app.get('/Grades', (req, res, next) => {
         })
 });
 
-app.get('/Lecturers', (req, res, next) => {
-    console.log("GET receieved on /Lecturers");
+// Get Lecturers Page
+app.get('/lecturers', (req, res, next) => {
+    console.log("GET receieved on /lecturers");
 
     mongoDao.findAll()
         .then((data) => {
