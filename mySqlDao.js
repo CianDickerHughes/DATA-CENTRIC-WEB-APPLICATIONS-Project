@@ -1,3 +1,5 @@
+// Cian Dicker-Hughes
+//G00415413
 var pmysql = require("promise-mysql")
 var pool
 
@@ -58,6 +60,20 @@ var editStudent = function(studentId, updatedData) {
     });
 };
 
+var addStudent = function(newStudent) {
+    return new Promise((resolve, reject) => {
+        pool.query('INSERT INTO student (sid, name, age) VALUES (?, ?, ?)', 
+            [newStudent.sid, newStudent.name, newStudent.age])
+            .then(() => {
+                console.log("Student added successfully");
+                resolve();
+            })
+            .catch((error) => {
+                console.error("Database insert error:", error);
+                reject(error);
+            });
+    });
+};
 
 var getModule = function() {
     return new Promise((resolve, reject) => {
@@ -101,6 +117,6 @@ var getGrades = function() {
     });
 };
 
-module.exports = { getStudent, getStudentById, editStudent, getModule, getGrades }
+module.exports = { getStudent, getStudentById, editStudent, addStudent, getModule, getGrades }
 
     

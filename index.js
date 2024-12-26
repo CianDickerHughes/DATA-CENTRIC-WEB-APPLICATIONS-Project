@@ -1,3 +1,5 @@
+// Cian Dicker-Hughes
+//G00415413
 var express = require('express')
 var mySQLDAO = require('./mySqlDao')
 var mongoDao = require('./mongoDao')
@@ -72,6 +74,40 @@ app.post('/edit/:id', (req, res, next) => {
         .catch((err) => {
             console.error("Error updating student:", err);
             res.status(500).send("Error updating student details");
+        });
+});
+
+// Get Add Student Page
+app.get('/add', (req, res) => {
+    res.render("add", { student: {} }); // Render add.ejs with empty student object
+});
+
+// POST route to handle form submission for adding a new student
+app.post('/add', (req, res) => {
+    const { sid, name, age } = req.body;
+
+    // Validate inputs
+    if (!sid || sid.length !== 4) {
+        return res.status(400).send("Student ID must be 4 characters long");
+    }
+    if (!name || name.length < 2) {
+        return res.status(400).send("Name must be at least 2 characters long");
+    }
+    if (!age || age < 18) {
+        return res.status(400).send("Age must be at least 18");
+    }
+
+    // Prepare the student data
+    const newStudent = { sid, name, age };
+
+    // Call the DAO to insert the new student
+    mySQLDAO.addStudent(newStudent)
+        .then(() => {
+            res.redirect('/students'); // Redirect to the students list
+        })
+        .catch((err) => {
+            console.error("Error adding student:", err);
+            res.status(500).send("Error adding student to the database");
         });
 });
 
