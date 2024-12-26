@@ -1,5 +1,5 @@
 // Cian Dicker-Hughes
-//G00415413
+// G00415413
 var pmysql = require("promise-mysql")
 var pool
 
@@ -70,7 +70,11 @@ var addStudent = function(newStudent) {
             })
             .catch((error) => {
                 console.error("Database insert error:", error);
-                reject(error);
+                if (error.code === 'ER_DUP_ENTRY') {
+                    reject(new Error('Duplicate Student ID'));
+                } else {
+                    reject(error);
+                }
             });
     });
 };
@@ -118,5 +122,3 @@ var getGrades = function() {
 };
 
 module.exports = { getStudent, getStudentById, editStudent, addStudent, getModule, getGrades }
-
-    

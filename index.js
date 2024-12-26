@@ -1,5 +1,5 @@
 // Cian Dicker-Hughes
-//G00415413
+// G00415413
 var express = require('express')
 var mySQLDAO = require('./mySqlDao')
 var mongoDao = require('./mongoDao')
@@ -8,6 +8,7 @@ let ejs = require('ejs');
 var app = express();
 
 app.use(bodyParser.urlencoded({extended: false}))
+app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 app.listen(3004, () =>{
@@ -35,7 +36,8 @@ app.get('/students', (req, res, next) => {
 });
 
 // Get Edit Student Page
-app.get('/edit/:id', (req, res, next) => {
+app.get('/students/edit/:id', (req, res, next) => {
+
     const studentId = req.params.id;
     mySQLDAO.getStudentById(studentId)
         .then((student) => {
@@ -52,7 +54,7 @@ app.get('/edit/:id', (req, res, next) => {
 });
 
 // Post Edit Student Page
-app.post('/edit/:id', (req, res, next) => {
+app.post('/students/edit/:id', (req, res, next) => {
     const studentId = req.params.id;
     const { name, age } = req.body;
 
@@ -78,12 +80,12 @@ app.post('/edit/:id', (req, res, next) => {
 });
 
 // Get Add Student Page
-app.get('/add', (req, res) => {
-    res.render("add", { student: {} }); // Render add.ejs with empty student object
+app.get('/students/add', (req, res) => { // Render add.ejs with an empty student object and idExists flags
+    res.render("add", { student: {}, idExists: false }); 
 });
 
-// POST route to handle form submission for adding a new student
-app.post('/add', (req, res) => {
+// Post add Student to handle form submission for adding a new student
+app.post('/students/add', (req, res) => {
     const { sid, name, age } = req.body;
 
     // Validate inputs
@@ -107,7 +109,9 @@ app.post('/add', (req, res) => {
         })
         .catch((err) => {
             console.error("Error adding student:", err);
-            res.status(500).send("Error adding student to the database");
+            // Check for specific error (e.g., duplicate key)
+            const idExists = true; // Assume error indicates duplicate ID
+            res.render('add', { idExists }); // Render Add page with the flag
         });
 });
 

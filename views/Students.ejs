@@ -1,38 +1,32 @@
-<style>
-    /* Table styling */
-    table { border-collapse: collapse; width: 100%; margin: 20px 0; font-size: 18px; text-align: left; border: 1px solid black; }
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Students</title>
+        <link rel="stylesheet" href="/css/styles.css" type="text/css" />
+        <link rel="icon" href="/images/college.svg" type="image/svg+xml">
+    </head>
 
-    /* Header styling */
-    th { background-color: #f2f2f2; border: 1px solid black; padding: 10px;}
+    <body>
+        <h1>Students</h1><br>
+        <p style="font-size: 20px;"><a href="/students/add">Add Student</a></p>
+        <p style="font-size: 20px;"><a href="/">Home</a></p>
 
-    /* Cell styling */
-    td { border: 1px solid black; padding: 8px; }
-    /* Row hover effect */
-    tr:hover { background-color: #f9f9f9; }
-
-    /* Link styling */
-    a { text-decoration: none; color: blue; }
-    a:hover { text-decoration: underline; }
-</style>
-
-<h1>Students</h1><br>
-<p style="font-size: 20px;"><a href="/add">Add Student</a></p>
-<p style="font-size: 20px;"><a href="/">Home</a></p>
-
-
-<table >
-    <tr>
-        <th>Student ID</th>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Action</th>
-    </tr>
-    <% student.forEach((student) => { %>
-        <tr>
-            <td><%= student.sid %></td>
-            <td><%= student.name %></td>
-            <td><%= student.age %></td>
-            <td><a href="/edit/<%= student.sid %>">Update</a></td>
-        </tr>
-    <% }) %>
-</table>
+        <table >
+            <tr>
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Action</th>
+            </tr>
+            <% student.forEach((student) => { %>
+                <tr>
+                    <td><%= student.sid %></td>
+                    <td><%= student.name %></td>
+                    <td><%= student.age %></td>
+                    <td><a href="/students/edit/<%= student.sid %>">Update</a></td>
+                </tr>
+            <% }) %>
+        </table>
+    </body>
+</html>

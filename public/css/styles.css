@@ -1,0 +1,14 @@
+ /* Table styling */
+ table { border-collapse: collapse; width: 100%; margin: 20px 0; font-size: 18px; text-align: left; border: 1px solid black; }
+
+ /* Header styling */
+ th { background-color: #f2f2f2; border: 1px solid black; padding: 10px;}
+
+ /* Cell styling */
+ td { border: 1px solid black; padding: 8px; }
+ /* Row hover effect */
+ tr:hover { background-color: #f9f9f9; }
+
+ /* Link styling */
+ a { text-decoration: none; color: blue; }
+ a:hover { text-decoration: underline; }

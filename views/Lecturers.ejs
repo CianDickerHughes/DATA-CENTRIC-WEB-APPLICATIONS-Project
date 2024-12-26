@@ -1,36 +1,31 @@
-<style>
-    /* Table styling */
-    table { border-collapse: collapse; width: 100%; margin: 20px 0; font-size: 18px; text-align: left; border: 1px solid black; }
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Lecturers</title>
+        <link rel="stylesheet" href="/css/styles.css" type="text/css" />
+        <link rel="icon" href="/images/college.svg" type="image/svg+xml">
+    </head>
 
-    /* Header styling */
-    th { background-color: #f2f2f2; border: 1px solid black; padding: 10px;}
+    <body>
+        <h1>Lecturers</h1>
+        <p style="font-size: 20px;"><a href="/">Home</a></p>
 
-    /* Cell styling */
-    td { border: 1px solid black; padding: 8px; }
-    /* Row hover effect */
-    tr:hover { background-color: #f9f9f9; }
-
-    /* Link styling */
-    a { text-decoration: none; color: blue; }
-    a:hover { text-decoration: underline; }
-</style>
-
-<h1>Lecturers</h1>
-<p style="font-size: 20px;"><a href="/">Home</a></p>
-
-<table >
-    <tr>
-        <th>Lecturer ID</th>
-        <th>Name</th>
-        <th>Department ID</th>
-        <th>Action</th>
-    </tr>
-    <% lecturers.forEach((lecturer) => { %>
-        <tr>
-            <td><%= lecturer._id %></td>
-            <td><%= lecturer.name %></td>
-            <td><%= lecturer.did %></td>
-            <td><a href="/deleteLecturer/<%= lecturer._id %>">Delete</a></td>
-        </tr>
-    <% }) %>
-</table>
+        <table >
+            <tr>
+                <th>Lecturer ID</th>
+                <th>Name</th>
+                <th>Department ID</th>
+                <th>Action</th>
+            </tr>
+            <% lecturers.forEach((lecturer) => { %>
+                <tr>
+                    <td><%= lecturer._id %></td>
+                    <td><%= lecturer.name %></td>
+                    <td><%= lecturer.did %></td>
+                    <td><a href="/deleteLecturer/<%= lecturer._id %>">Delete</a></td>
+                </tr>
+            <% }) %>
+        </table>
+    </body>
+</html>
