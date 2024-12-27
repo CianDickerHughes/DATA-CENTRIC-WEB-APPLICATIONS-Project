@@ -19,7 +19,8 @@
                 <th>Student ID</th>
                 <th>Name</th>
                 <th>Age</th>
-                <th>Action</th>
+                <th>Update Action</th>
+                <th>Delete Action</th>
             </tr>
             <% student.forEach((student) => { %>
                 <tr>
@@ -27,6 +28,7 @@
                     <td><%= student.name %></td>
                     <td><%= student.age %></td>
                     <td><a href="/students/edit/<%= student.sid %>">Update</a></td>
+                    <td><a href="/students/delete/<%= student.sid %>">Delete</a></td>
                 </tr>
             <% }) %>
         </table>

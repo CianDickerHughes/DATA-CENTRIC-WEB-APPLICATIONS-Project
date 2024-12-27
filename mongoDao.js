@@ -16,7 +16,7 @@ MongoClient.connect('mongodb://127.0.0.1:27017')
     console.log(error.message)
     });
 
-
+// find all lecturers
 var findAll = function() {
     return new Promise((resolve, reject) => {
         coll.find().sort({ _id: 1 }).toArray() // Sort by _id in ascending order
@@ -32,28 +32,11 @@ var findAll = function() {
 // Function to delete lecturer from MongoDB
 const deleteLecturerById = async (lecturerId) => {
     try {
-        const result = await coll.deleteOne({ _id: lecturerId }); // Delete lecturer by ID
-        return result; // Return the result of the deletion
+        const result = await coll.deleteOne({ _id: lecturerId });
+        return result;
     } catch (error) {
         throw new Error(`Error deleting lecturer: ${error.message}`);
     }
 };
 
-
-
-module.exports = { findAll, deleteLecturerById };
-
-
-/*
-var addEmployee = function(employee) {
-    return new Promise((resolve, reject) => {
-        coll.insertOne(employee)
-            .then((documents) => {
-                resolve(documents)
-            })
-            .catch((error) => {
-                reject(error)
-            })
-    })
-}*/
-        
+module.exports = { findAll, deleteLecturerById };      

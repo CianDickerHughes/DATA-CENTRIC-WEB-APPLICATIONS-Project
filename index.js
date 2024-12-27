@@ -31,7 +31,6 @@ app.get('/students', (req, res, next) => {
             console.error(err);
             res.render("Students", { student: [] }); // Render an empty table in case of an error
         });
-
 });
 
 // Get Edit Student Page
@@ -110,6 +109,19 @@ app.post('/students/add', (req, res) => {
             console.error("Error adding student:", err);
             const idExists = true; 
             res.render('add', { idExists }); // Render Add page with the flag
+        });
+});
+
+// Get Delete Student
+app.get('/students/delete/:id', (req, res) => {
+    const studentId = req.params.id;
+    mySQLDAO.deleteStudent(studentId)
+        .then(() => {
+            res.redirect('/students'); // Redirect after successful deletion
+        })
+        .catch((err) => {
+            console.error("Error deleting student:", err);
+            res.status(500).send("Error deleting student");
         });
 });
 

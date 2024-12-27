@@ -1,14 +1,40 @@
- /* Table styling */
- table { border-collapse: collapse; width: 100%; margin: 20px 0; font-size: 18px; text-align: left; border: 1px solid black; }
+/* Table styling */
+table { border-collapse: collapse; width: 100%; margin: 20px 0; font-size: 18px; text-align: left; border: 1px solid black; }
 
- /* Header styling */
- th { background-color: #f2f2f2; border: 1px solid black; padding: 10px;}
+/* Header styling */
+th { background-color: #f2f2f2; border: 1px solid black; padding: 10px;}
 
- /* Cell styling */
- td { border: 1px solid black; padding: 8px; }
- /* Row hover effect */
- tr:hover { background-color: #f9f9f9; }
+/* Cell styling */
+td { border: 1px solid black; padding: 8px; }
 
- /* Link styling */
- a { text-decoration: none; color: blue; }
- a:hover { text-decoration: underline; }
+/* Row hover effect */
+tr:hover { background-color: #f9f9f9; }
+
+/* Link styling */
+a { text-decoration: none; color: blue; }
+
+a:hover { text-decoration: underline; }
+
+/* Global body styling */
+body { font-family: Arial, sans-serif;  }
+
+/* Header 1 styling */
+h1 { text-align: center; font-size: 48px; margin-top: 50px; }
+
+/* Header 2 styling */
+h2 { text-align: center; font-size: 32px; margin-bottom: 30px; }
+
+/* Container for navigation bar */
+.nav-container { text-align: center; padding: 20px; }
+
+/* Styling for navigation bar */
+.nav { list-style-type: none; padding: 0; text-align: center; background-color: #007BFF; color: white; font-size: 18px; margin-bottom: 20px; max-width: 800px; padding: 5px; border-radius: 15px; margin: 0 auto;}
+
+/* Styling for navigation list items */
+.nav li { display: inline; margin-right: 20px; }
+
+/* Styling for navigation links */
+.nav a { color: white; text-decoration: none; padding: 10px 25px; display: inline-block; border: 3px solid #000; border-radius: 25px; }
+
+/* Hover effect for navigation links */
+.nav a:hover { background-color: #0056b3; }

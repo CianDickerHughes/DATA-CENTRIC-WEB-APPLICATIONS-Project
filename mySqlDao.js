@@ -38,7 +38,7 @@ var getStudentById = function(studentId) {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM student WHERE sid = ?', [studentId])
             .then((data) => {
-                resolve(data[0]); // Return the first result
+                resolve(data[0]); 
             })
             .catch((error) => {
                 reject(error);
@@ -84,6 +84,21 @@ var addStudent = function(newStudent) {
     });
 };
 
+// Delete Student from the Database
+var deleteStudent = function(studentId) {
+    return new Promise((resolve, reject) => {
+        pool.query('DELETE FROM student WHERE sid = ?', [studentId])
+            .then(() => {
+                console.log("Student deleted successfully:", studentId);
+                resolve();
+            })
+            .catch((error) => {
+                console.error("Database delete error:", error);
+                reject(error);
+            });
+    });
+};
+
 // get Module from DataBase
 var getModule = function() {
     return new Promise((resolve, reject) => {
@@ -104,7 +119,7 @@ var getModuleByLecturer = function(lecturerId) {
     return new Promise((resolve, reject) => {
         pool.query('SELECT * FROM module WHERE lecturer = ?', [lecturerId])
             .then((data) => {
-                resolve(data); // Return modules related to the lecturer
+                resolve(data); 
             })
             .catch((error) => {
                 console.error("Error fetching modules for lecturer:", error);
@@ -141,4 +156,4 @@ var getGrades = function() {
     });
 };
 
-module.exports = { getStudent, getStudentById, editStudent, addStudent, getModule, getModuleByLecturer, getGrades }
+module.exports = { getStudent, getStudentById, editStudent, addStudent, deleteStudent, getModule, getModuleByLecturer, getGrades }
