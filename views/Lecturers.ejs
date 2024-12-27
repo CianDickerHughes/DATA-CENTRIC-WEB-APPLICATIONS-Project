@@ -9,9 +9,9 @@
     </head>
 
     <body>
-        <h1>Lecturers</h1>
+        <h1>Lecturers</h1><br>
         <p style="font-size: 20px;"><a href="/">Home</a></p>
-
+        
         <!-- Table of Lecturer -->
         <table >
             <tr>
@@ -25,7 +25,7 @@
                     <td><%= lecturer._id %></td>
                     <td><%= lecturer.name %></td>
                     <td><%= lecturer.did %></td>
-                    <td><a href="/deleteLecturer/<%= lecturer._id %>">Delete</a></td>
+                    <td><a href="/lecturers/delete/<%= lecturer._id %>">Delete</a></td>
                 </tr>
             <% }) %>
         </table>

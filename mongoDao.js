@@ -1,8 +1,8 @@
 // Cian Dicker-Hughes
 // G00415413
 const { json } = require('express')
-
 const MongoClient = require('mongodb').MongoClient
+const mysqlDao = require('./mySqlDao'); // Import MySQL DAO
 
 var db;
 var coll;
@@ -29,7 +29,19 @@ var findAll = function() {
     });
 };
 
-module.exports = { findAll };
+// Function to delete lecturer from MongoDB
+const deleteLecturerById = async (lecturerId) => {
+    try {
+        const result = await coll.deleteOne({ _id: lecturerId }); // Delete lecturer by ID
+        return result; // Return the result of the deletion
+    } catch (error) {
+        throw new Error(`Error deleting lecturer: ${error.message}`);
+    }
+};
+
+
+
+module.exports = { findAll, deleteLecturerById };
 
 
 /*

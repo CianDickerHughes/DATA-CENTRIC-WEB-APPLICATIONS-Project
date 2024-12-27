@@ -23,7 +23,6 @@ app.get('/', (req, res, next) => {
 
 // Get Students Page
 app.get('/students', (req, res, next) => {
-    console.log("GET receieved on /students");
     mySQLDAO.getStudent()
         .then((students) => {
             res.render("Students", { student: students });
@@ -37,7 +36,6 @@ app.get('/students', (req, res, next) => {
 
 // Get Edit Student Page
 app.get('/students/edit/:id', (req, res, next) => {
-
     const studentId = req.params.id;
     mySQLDAO.getStudentById(studentId)
         .then((student) => {
@@ -130,8 +128,6 @@ app.get('/grades', (req, res, next) => {
 
 // Get Lecturers Page
 app.get('/lecturers', (req, res, next) => {
-    console.log("GET receieved on /lecturers");
-
     mongoDao.findAll()
         .then((data) => {
             res.render("Lecturers", { lecturers: data }); // Data is already sorted
@@ -139,5 +135,32 @@ app.get('/lecturers', (req, res, next) => {
         .catch((error) => {
             console.log(error);
             res.render("Lecturers", { lecturers: [], error: error.message }); // Handle errors gracefully
+        });
+});
+
+app.get('/lecturers/delete/:lid', (req, res, next) => {
+    const lecturerId = req.params.lid; // Get the lecturer ID from the URL parameter
+
+    // Check if the lecturer has any associated modules
+    mySQLDAO.getModuleByLecturer(lecturerId)
+        .then((modules) => {
+            if (modules.length > 0) {
+                // Lecturer has associated modules, redirect to the Delete page
+                res.render("Delete", { lecturerId: lecturerId, message: "This lecturer has associated modules and cannot be deleted." });
+            } else {
+                // No associated modules, proceed with deletion logic
+                mongoDao.deleteLecturerById(lecturerId)
+                    .then(() => {
+                        res.redirect('/lecturers'); // Redirect to the lecturers page if deletion is successful
+                    })
+                    .catch((error) => {
+                        console.error("Error deleting lecturer:", error);
+                        res.status(500).send("Error deleting lecturer");
+                    });
+            }
+        })
+        .catch((error) => {
+            console.error("Error fetching modules for lecturer:", error);
+            res.status(500).send("Error fetching lecturer data");
         });
 });

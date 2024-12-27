@@ -99,6 +99,20 @@ var getModule = function() {
     })
 }
 
+// Function to get modules by lecturer ID
+var getModuleByLecturer = function(lecturerId) {
+    return new Promise((resolve, reject) => {
+        pool.query('SELECT * FROM module WHERE lecturer = ?', [lecturerId])
+            .then((data) => {
+                resolve(data); // Return modules related to the lecturer
+            })
+            .catch((error) => {
+                console.error("Error fetching modules for lecturer:", error);
+                reject(error);
+            });
+    });
+};
+
 // get Grades for all stutents from DataBase
 var getGrades = function() {
     return new Promise((resolve, reject) => {
@@ -127,4 +141,4 @@ var getGrades = function() {
     });
 };
 
-module.exports = { getStudent, getStudentById, editStudent, addStudent, getModule, getGrades }
+module.exports = { getStudent, getStudentById, editStudent, addStudent, getModule, getModuleByLecturer, getGrades }
