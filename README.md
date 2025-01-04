@@ -1,5 +1,5 @@
 # Welcome to the DATA-CENTRIC-WEB-APPLICATIONS-Project!
-This Project been made in MERN (MongoDB, Express.js, React, Node.js)
+This Project been made in  (MongoDB, SQL, Express.js)
 ## First Download the Project
 ### To Run the Program will be run on the Command Line <br>
 * Open the Project Folder and Open the Command Line <br>
