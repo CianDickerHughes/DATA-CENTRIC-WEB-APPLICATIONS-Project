@@ -4,7 +4,7 @@ This Project been made in  (MongoDB, SQL, Express.js)
 ### To Run the Program will be run on the Command Line <br>
 * Open the Project Folder and Open the Command Line <br>
 ### To Clone the Project in Command Line
-* `git clone https://github.com/CianDickerHughes/countries-geo-guessing-assignment.git`
+* `git clone https://github.com/CianDickerHughes/DATA-CENTRIC-WEB-APPLICATIONS-Project.git`
 <br>or
 * Download the .zip folder ([DATA-CENTRIC-WEB-APPLICATIONS-Project](https://github.com/CianDickerHughes/DATA-CENTRIC-WEB-APPLICATIONS-Project/archive/refs/heads/main.zip)) and extract/decompress the folder
 ## Running Project
