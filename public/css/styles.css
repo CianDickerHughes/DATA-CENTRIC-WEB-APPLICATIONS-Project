@@ -11,7 +11,7 @@ td { border: 1px solid black; padding: 8px; }
 tr:hover { background-color: #f9f9f9; }
 
 /* Link styling */
-a { text-decoration: none; color: blue; }
+a { color: white; background-color: #007BFF; text-decoration: none; padding: 10px 25px; display: inline-block; border: 3px solid #000; border-radius: 25px; }
 
 a:hover { text-decoration: underline; }
 

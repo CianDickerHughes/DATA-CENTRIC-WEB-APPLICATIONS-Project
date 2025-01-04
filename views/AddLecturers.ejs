@@ -1,0 +1,40 @@
+<!-- Cian Dicker-Hughes : G00415413 -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Students Add</title>
+        <link rel="stylesheet" href="/css/styles.css" type="text/css" />
+        <link rel="icon" href="/images/college.svg" type="image/svg+xml">
+    </head>
+
+    <body>
+        <p style="font-size: 20px;"><a href="/">Home</a></p>
+
+        <h1>Add Lecturer</h1>
+
+        <% if (idExists) { %> <!-- If lecturers ID exist in the DB -->
+            <p style="color: red; font-weight: bold;">The Lecturer ID already exists in the database. Please use a different ID.</p>
+        <% } %>
+
+        <ul>
+            <li>Lecturer ID should be 4 characters</li>
+            <li>Lecturer Name should be at least 2 characters</li>
+            <li>Lecturer Department ID should be 3 characters and no more</li>
+        </ul>
+
+        <!-- Form Add New lecturers -->
+        <form action="/lecturers/add" method="POST">
+            <label for="sid">Lecturer ID:</label>
+            <input type="text" id="sid" name="sid" minlength="4" maxlength="4" required>
+            <br>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" minlength="2" required>
+            <br>
+            <label for="did">Department ID:</label>
+            <input type="text" id="did" name="did" minlength="3" maxlength="3" required>
+            <br>
+            <button type="submit">Add</button>
+        </form>
+    </body>
+</html>

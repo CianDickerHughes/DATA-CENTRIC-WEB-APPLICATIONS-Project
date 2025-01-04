@@ -176,3 +176,26 @@ app.get('/lecturers/delete/:lid', (req, res, next) => {
             res.status(500).send("Error fetching lecturer data");
         });
 });
+
+// Get Add Lecturers Page
+app.get('/lecturers/add', (req, res, next) => {
+    res.render("AddLecturers", { idExists: false }); 
+});
+
+// Post Add Lecturers Page
+app.post('/lecturers/add', (req, res) => {
+    const { sid, name, did } = req.body;
+
+    const newLecturer = { _id: sid, name, did };
+
+    mongoDao.addLecturer(newLecturer)
+        .then(() => {
+            res.redirect('/lecturers');
+        })
+        .catch((err) => {
+            console.error("Error adding lecturer:", err.message);
+            const idExists = err.message.includes("Duplicate Lecturer ID.");
+            res.render('AddLecturers', { idExists });
+        });
+});
+
